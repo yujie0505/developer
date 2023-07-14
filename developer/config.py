@@ -1,10 +1,13 @@
+from __future__ import annotations
+
 import os
+from typing import Callable
 
 from dotenv import load_dotenv
 
-load_dotenv(verbose=True)
 
+def load(dotenv_path: str | None = None) -> Callable[[str], str | None]:
+    """Load environment variables from dotenv file."""
+    load_dotenv(dotenv_path, verbose=True)
 
-def get_env(key: str) -> str | None:
-    """Get environment variables after loading the .env file."""
-    return os.getenv(key)
+    return lambda key: os.getenv(key)
